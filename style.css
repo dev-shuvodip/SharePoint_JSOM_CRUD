@@ -1,0 +1,25 @@
+.container {
+  max-width: fit-content;
+  margin: 0px auto 10px 10px;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
+  padding: 5px;
+}
+
+.label {
+  height: 32px;
+  line-height: 32px;
+  margin: 0 4px;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
+  vertical-align: top;
+  display: inline-block;
+}
+
+.button {
+  text-decoration: none;
+  height: 32px;
+  min-width: 80px;
+  background-color: #0078d4;
+  border-color: #0078d4;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
+  color: white;
+}
