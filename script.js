@@ -19,12 +19,10 @@ function createListItem() {
   oListItem.set_item('Gender', gender);
 
   // Input validation
-  if (title == "" || address == "" || qualification == "" || age == "") {
+  if (title == "" || address == "" || qualification == "" || age == "" || gender == "default") {
     alert("Please fill all the fields!");
   } else if (isNaN(age)) {
     alert("Please enter correct age!");
-  } else if (gender == "default") {
-    alert("Please select gender!");
   } else {
     console.log(title);
     console.log(address);
