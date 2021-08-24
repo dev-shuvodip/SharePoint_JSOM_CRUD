@@ -1,8 +1,8 @@
 .container {
-  max-width: fit-content;
-  margin: 0px auto 10px 10px;
+  max-width: max-content;
+  margin: 10px 50px 20px 10px;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
-  padding: 5px;
+  padding: 20px;
 }
 
 .label {
@@ -15,6 +15,7 @@
 }
 
 .button {
+  max-width: fit-content;
   text-decoration: none;
   height: 32px;
   min-width: 80px;
