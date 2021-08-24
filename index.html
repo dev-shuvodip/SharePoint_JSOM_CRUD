@@ -6,13 +6,17 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
+  <style>
+
+  </style>
   <title>CRUD Operation</title>
 </head>
 
 <body>
-  <div class="container">
-    <h1 style="color: #0078D4; text-shadow: 2px 2px 5px rgb(128, 128, 128, 0.5);">Student Form</h1>
-    <h5 style="color: rgb(128, 128, 128, 1)"> Create an item in Student list</h5>
+  <h1 style="color: #0078D4; text-shadow: 2px 2px 5px rgb(128, 128, 128, 0.5);">Student Form</h1>
+  <div class="container" style="float: left;">
+
+    <h5 style="color: rgb(128, 128, 128, 1)">Perform CRUD operations on SharePoint Online List</h5>
     <br>
     <table>
       <tbody>
@@ -44,8 +48,27 @@
             </select></td>
         </tr>
         <tr>
-          <td><br><button type="button" class="button" onclick="createListItem()">Submit</button></td>
-          <td><br><button type="button" class="button" onclick="resetForm()">Reset</button></td>
+          <td><label style="text-shadow: 2px 2px 5px rgb(128, 128, 128, 0.5);" for="custID">Custom ID</label></td>
+          <td><input type="text" placeholder="Enter Custom ID" id="custID"></td>
+        </tr>
+        <tr>
+          <td><label style="text-shadow: 2px 2px 5px rgb(128, 128, 128, 0.5);" for="def_id">ID</label></td>
+          <td><label style="text-shadow: 2px 2px 5px rgb(128, 128, 128, 0.5);" id="def_id"></label></td>
+        </tr>
+      </tbody>
+    </table>
+    <br>
+    <table>
+      <tbody>
+        <tr>
+          <td><br><button type="button" class="button" id="create_button" onclick="createListItem()">Create
+              Item</button></td>
+          <td><br><button type="button" class="button" id="reset_button" onclick="resetForm()">Reset Form</button></td>
+          <td><br><button type="button" class="button" id="read_button" onclick="getListItem()">Read Item</button></td>
+          <td><br><button type="button" class="button" id="update_button" onclick="updateListItem()">Update</button>
+          </td>
+          <td><br><button type="button" class="button" id="delete_button" onclick="deleteListItem()">Delete</button>
+          </td>
         </tr>
       </tbody>
     </table>
