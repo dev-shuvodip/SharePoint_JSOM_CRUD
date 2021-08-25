@@ -1,5 +1,22 @@
-function createListItem() {
 
+///<summary>
+/// Function to reset the form fields
+///</summary>
+function resetForm() {
+  document.querySelector("label#def_id").textContent = "";
+  document.getElementById("name").value = "";
+  document.getElementById("address").value = "";
+  document.getElementById("qualification").value = "";
+  document.getElementById("age").value = null;
+  document.getElementById('gender').selectedIndex = 0;
+  document.getElementById("custID").value = null;
+}
+//---------------------- Reset function end -------------------------------
+
+///<summary>
+/// Function to create an item in a SharePoint Online List
+///</summary>
+function createListItem() {
   var title = document.getElementById("name").value;
   var address = document.getElementById("address").value;
   var qualification = document.getElementById("qualification").value;
@@ -43,23 +60,34 @@ function createListItem() {
 
 function onCreateQuerySucceeded() {
   alert('Item created: ' + oListItem.get_id());
+  resetForm();
 }
 
 function onUpdateQueryFailed(sender, args) {
   alert('Request failed. ' + args.get_message() +
     '\n' + args.get_stackTrace());
 }
+//---------------------- Create function end -------------------------------
 
-
+///<summary>
+/// Function to get a list item from a SharePoint Online List using custom ID column
+///</summary>
 function getListItem() {
+  var cID = document.getElementById("custID").value;
   var clientContext = new SP.ClientContext.get_current();
   var olist = clientContext.get_web().get_lists().getByTitle('Student');
   var camlQuery = new SP.CamlQuery();
-  camlQuery.set_viewXml('<View><Query><Where><Eq><FieldRef Name=\'CustomID\'/><Value Type=\'Number\'>' + document.getElementById("custID").value + '</Value></Eq></Where></Query></View>');
+  camlQuery.set_viewXml('<View><Query><Where><Eq><FieldRef Name=\'CustomID\'/><Value Type=\'Number\'>' + cID + '</Value></Eq></Where></Query></View>');
   this.collListItem = olist.getItems(camlQuery);
-  clientContext.load(collListItem);
-  clientContext.executeQueryAsync(Function.createDelegate(this, this.onGetQuerySucceeded), Function.createDelegate(this, this.onGetQueryFailed));
-  return false;
+  if (cID == "") {
+    alert("Please enter Id");
+  } else if (isNaN(cID)) {
+    alert("Only integer input is allowed");
+    resetForm();
+  } else {
+    clientContext.load(collListItem);
+    clientContext.executeQueryAsync(Function.createDelegate(this, this.onGetQuerySucceeded), Function.createDelegate(this, this.onGetQueryFailed));
+  }
 }
 function onGetQuerySucceeded(sender, args) {
   var listItemEnumerator = collListItem.getEnumerator();
@@ -78,38 +106,23 @@ function onGetQuerySucceeded(sender, args) {
 function onGetQueryFailed(sender, args) {
   alert('Request failed. ' + args.get_message() + '\n' + args.get_stackTrace());
 }
+//---------------------- Get function end -------------------------------
 
-function resetForm() {
-  document.querySelector("label#def_id").textContent = "";
-  document.getElementById("name").value = "";
-  document.getElementById("address").value = "";
-  document.getElementById("qualification").value = "";
-  document.getElementById("age").value = null;
-  document.getElementById('gender').selectedIndex = 0;
-  document.getElementById("custID").value = null;
-}
-
+///<summary>
+/// Function to update a list item in a SharePoint Online List using custom ID column
+///</summary>
 function updateListItem() {
-  var Id = document.querySelector("label#def_id").textContent;
-  var name = document.getElementById("name").value;
-  var address = document.getElementById("address").value;
-  var qualification = document.getElementById("qualification").value;
-  var age = document.getElementById("age").value;
-  var gender = document.getElementById("gender").value;
-
-  var itemId = parseInt(Id);
+  var c_ID = document.getElementById("custID").value;
 
   var clientContext = new SP.ClientContext.get_current();
   var oList = clientContext.get_web().get_lists().getByTitle('Student');
 
-  this.oListItem = oList.getItemById(itemId);
-  oListItem.set_item('Title', name);
-  oListItem.set_item('Address', address);
-  oListItem.set_item('Qualification', qualification);
-  oListItem.set_item('Age', age);
-  oListItem.set_item('Gender', gender);
-  oListItem.update();
+  var camlQuery = new SP.CamlQuery();
+  camlQuery.set_viewXml('<View><Query><Where><Eq><FieldRef Name=\'CustomID\'/><Value Type=\'Number\'>' + c_ID + '</Value></Eq></Where></Query></View>');
+  this.oListItems = oList.getItems(camlQuery);
+  console.log(oListItems);
 
+  clientContext.load(oListItems);
   clientContext.executeQueryAsync(
     Function.createDelegate(this, this.onUpdateQuerySucceeded),
     Function.createDelegate(this, this.onUpdateQueryFailed)
@@ -117,23 +130,49 @@ function updateListItem() {
 }
 
 function onUpdateQuerySucceeded() {
+  var name = document.getElementById("name").value;
+  var address = document.getElementById("address").value;
+  var qualification = document.getElementById("qualification").value;
+  var age = document.getElementById("age").value;
+  var gender = document.getElementById("gender").value;
+
+  var listItemEnumerator = oListItems.getEnumerator();
+  var listItem;
+  while (listItemEnumerator.moveNext()) {
+    listItem = listItemEnumerator.get_current();
+    console.log(listItem);
+  }
+  listItem.set_item('Title', name);
+  listItem.set_item('Address', address);
+  listItem.set_item('Qualification', qualification);
+  listItem.set_item('Age', age);
+  listItem.set_item('Gender', gender);
+  listItem.update();
+
   alert('Item updated!');
+  resetForm();
 }
 
 function onUpdateQueryFailed(sender, args) {
   alert('Request failed. ' + args.get_message() +
     '\n' + args.get_stackTrace());
 }
+//---------------------- Update function end -------------------------------
 
+///<summary>
+/// Function to delete a list item in a SharePoint Online List using custom ID column
+///</summary>
 function deleteListItem() {
+  var c_ID = document.getElementById("custID").value;
+
   var clientContext = new SP.ClientContext.get_current();
   var oList = clientContext.get_web().get_lists().getByTitle('Student');
 
-  var Id2 = document.querySelector("label#def_id").textContent;
-  var itemId2 = parseInt(Id2);
-  this.oListItem = oList.getItemById(itemId2);
-  oListItem.deleteObject();
+  var camlQuery = new SP.CamlQuery();
+  camlQuery.set_viewXml('<View><Query><Where><Eq><FieldRef Name=\'CustomID\'/><Value Type=\'Number\'>' + c_ID + '</Value></Eq></Where></Query></View>');
+  this.oListItems = oList.getItems(camlQuery);
 
+  clientContext.load(oListItems);
   clientContext.executeQueryAsync(
     Function.createDelegate(this, this.onDeleteQuerySucceeded),
     Function.createDelegate(this, this.onDeleteQueryFailed)
@@ -141,41 +180,19 @@ function deleteListItem() {
 }
 
 function onDeleteQuerySucceeded() {
-  alert('Item deleted: ' + itemId);
+  var listItemEnumerator = oListItems.getEnumerator();
+  var listItem;
+  while (listItemEnumerator.moveNext()) {
+    listItem = listItemEnumerator.get_current();
+  }
+  listItem.deleteObject();
+
+  alert('Item deleted');
+  resetForm();
 }
 
 function onDeleteQueryFailed(sender, args) {
   alert('Request failed. ' + args.get_message() +
     '\n' + args.get_stackTrace());
 }
-
-// function showListItems() {
-//   var context = new SP.ClientContext.get_current();
-//   var targetList = context.get_web().get_lists().getByTitle('Student');
-//   var camlQuery = new SP.CamlQuery();
-//   camlQuery.set_viewXml("<View><Query><OrderBy><FieldRef Name='ID' Ascending='TRUE' /></OrderBy></Query><RowLimit>10</RowLimit></View>");
-//   this.collListItem = targetList.getItems(camlQuery);
-//   context.load(collListItem);
-//   context.executeQueryAsync(Function.createDelegate(this, this.onShowQuerySucceeded),
-//     Function.createDelegate(this, this.onQueryFailed));
-// }
-
-// function onShowQuerySucceeded(sender, args) {
-//   var listItemEnumerator = collListItem.getEnumerator();
-//   var listCount = collListItem.get_count();
-//   console.log("list item count -- " + listCount);
-//   var mytable = "<div id=\"div4\"><h2 style=\"color:navy;\"><u>All Items will be displayed here</u></h2><table class=\"alternate\" id=\"table2\"><tr>" +
-//     "<th>Name</th>" +
-//     "<th>Address</th>" +
-//     "<th>Qualification</th>" +
-//     "<th>Age</th>" +
-//     "<th>Gender</th>";
-//   var i = 0;
-//   while (listItemEnumerator.moveNext()) {
-//     var oListItem = listItemEnumerator.get_current();
-//     mytable += "<tr><td>" + oListItem.get_item('Title') + "</td><td>" + oListItem.get_item('Address') + "</td><td>" + oListItem.get_item('Qualification') + "</td><td>" + oListItem.get_item('Age') + "</td><td>" + oListItem.get_item('Gender') + "</td><td><button type=\"button\" class=\"button\" id=\"ID" + i.toString() + "onclick=\"getSelectedId()\">" + oListItem.get_item('ID') + "<tr><td>" + oListItem.get_item('CustomID') + "</td><td>" + "</button></td></tr>";
-//     ++i;
-//   }
-//   mytable += "</table></div>";
-//   document.getElementById("list").insertAdjacentHTML("afterbegin", mytable);
-// }
+//---------------------- Delete function end -------------------------------

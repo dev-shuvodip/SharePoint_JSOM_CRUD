@@ -2,14 +2,14 @@
   max-width: max-content;
   margin: 10px 50px 20px 10px;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
-  padding: 20px;
+  padding: 10px;
 }
 
 .label {
   height: 32px;
   line-height: 32px;
   margin: 0 4px;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
+  text-shadow: 2px 2px 5px rgb(128, 128, 128, 0.5);
   vertical-align: top;
   display: inline-block;
 }
@@ -23,4 +23,8 @@
   border-color: #0078d4;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
   color: white;
+}
+
+td {
+  padding: 5px;
 }
