@@ -15,7 +15,7 @@
 }
 
 .button {
-  max-width: fit-content;
+  max-width: max-content;
   text-decoration: none;
   height: 32px;
   min-width: 80px;
