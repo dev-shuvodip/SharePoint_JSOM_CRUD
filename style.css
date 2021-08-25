@@ -9,7 +9,7 @@
   height: 32px;
   line-height: 32px;
   margin: 0 4px;
-  text-shadow: 2px 2px 5px rgb(128, 128, 128, 0.5);
+  color: #666666;
   vertical-align: top;
   display: inline-block;
 }

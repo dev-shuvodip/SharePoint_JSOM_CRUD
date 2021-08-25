@@ -147,8 +147,8 @@ function onUpdateQuerySucceeded() {
   listItem.set_item('Age', age);
   listItem.set_item('Gender', gender);
   listItem.update();
-
-  alert('Item updated!');
+  executeRequest(listItem);
+  alert('Item updated');
   resetForm();
 }
 
@@ -185,7 +185,7 @@ function onDeleteQuerySucceeded() {
     listItem = listItemEnumerator.get_current();
   }
   listItem.deleteObject();
-
+  executeRequest(listItem);
   alert('Item deleted');
   resetForm();
 }
@@ -195,3 +195,19 @@ function onDeleteQueryFailed(sender, args) {
     '\n' + args.get_stackTrace());
 }
 //---------------------- Delete function end -------------------------------
+
+///<summary>
+/// Function to execute pending requests on the server
+///</summary>
+function executeRequest(listItem) {
+  var clientContext = new SP.ClientContext.get_current();
+  clientContext.load(listItem);
+  clientContext.executeQueryAsync(
+    Function.createDelegate(this, this.onExecutionSucceeded),
+    Function.createDelegate(this, this.onExecutionFailed)
+  );
+}
+function onExecutionSucceeded() { }
+
+function onExecutionFailed(sender, args) { }
+      //---------------------- Execute function end -------------------------------
