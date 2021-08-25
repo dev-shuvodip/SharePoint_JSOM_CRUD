@@ -6,9 +6,6 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
-  <style>
-
-  </style>
   <title>CRUD Operation</title>
 </head>
 
@@ -16,30 +13,32 @@
   <h1 style="color: #0078D4; text-shadow: 2px 2px 5px rgb(128, 128, 128, 0.5);">Student Form</h1>
   <div class="container" style="float: left;">
 
-    <h5 style="color: rgb(128, 128, 128, 1)">Perform CRUD operations on SharePoint Online List</h5>
+    <h3 style="color: rgb(128, 128, 128, 1);">Perform CRUD operations on SharePoint Online List</h3>
     <br>
     <table>
       <tbody>
         <tr>
           <td><label style="text-shadow: 2px 2px 5px rgb(128, 128, 128, 0.5);" for="name">Name</label></td>
-          <td><input type="text" placeholder="Enter Name" id="name"></td>
+          <td><input type="text" title="Enter name of the student" placeholder="Enter Name" id="name"></td>
         </tr>
         <tr>
           <td><label style="text-shadow: 2px 2px 5px rgb(128, 128, 128, 0.5);" for="address">Address</label></td>
-          <td><textarea name="address" id="address" cols="30" rows="3" placeholder="Enter Address"></textarea></td>
+          <td><textarea name="address" title="Enter residential address" id="address" cols="30" rows="3"
+              placeholder="Enter Address"></textarea></td>
         </tr>
         <tr>
           <td><label style="text-shadow: 2px 2px 5px rgb(128, 128, 128, 0.5);" for="qualification">Qualification</label>
           </td>
-          <td><input type="text" placeholder="Enter Qualification" id="qualification"></td>
+          <td><input type="text" title="Enter qualifications of the student" placeholder="Enter Qualification"
+              id="qualification"></td>
         </tr>
         <tr>
           <td><label style="text-shadow: 2px 2px 5px rgb(128, 128, 128, 0.5);" for="age">Age</label></td>
-          <td><input type="text" placeholder="Enter Age" id="age"></td>
+          <td><input type="text" title="Enter age of the student" placeholder="Enter Age" id="age"></td>
         </tr>
         <tr>
           <td><label style="text-shadow: 2px 2px 5px rgb(128, 128, 128, 0.5);" for="gender">Gender</label></td>
-          <td><select id="gender">
+          <td><select id="gender" title="Select gender">
               <option value="default"></option>
               <option value="Male">Male</option>
               <option value="Female">Female</option>
@@ -49,15 +48,15 @@
         </tr>
         <tr>
           <td><label style="text-shadow: 2px 2px 5px rgb(128, 128, 128, 0.5);" for="custID">Custom ID</label></td>
-          <td><input type="text" placeholder="Enter Custom ID" id="custID"></td>
+          <td><input type="text" title="Enter corresponding ID of the student" placeholder="Enter Custom ID"
+              id="custID"></td>
         </tr>
         <tr>
           <td><label style="text-shadow: 2px 2px 5px rgb(128, 128, 128, 0.5);" for="def_id">ID</label></td>
-          <td><label style="text-shadow: 2px 2px 5px rgb(128, 128, 128, 0.5);" id="def_id"></label></td>
+          <td><label id="def_id" title="System-generated ID"></label></td>
         </tr>
       </tbody>
     </table>
-    <br>
     <table>
       <tbody>
         <tr>
@@ -73,7 +72,6 @@
       </tbody>
     </table>
   </div>
-
   <script src="script.js"></script>
 </body>
 
