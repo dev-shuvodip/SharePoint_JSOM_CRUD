@@ -11,8 +11,10 @@
 
   <body>
     <div class="container" style="float: left;">
-      <h1 style="color: #0078D4; text-shadow: 2px 2px 5px rgb(128, 128, 128, 0.5);">Student Form</h1>
-      <h3 style="color: rgb(128, 128, 128, 1); padding:5px;">Perform CRUD operations on SharePoint Online List</h3>
+      <h1 style="color: #0078D4; text-shadow: 2px 2px 5px rgb(128, 128, 128, 0.5); padding-bottom: 3px;">Student Form
+      </h1>
+      <h3 style="color: rgb(128, 128, 128, 1);">Perform CRUD operations on SharePoint List using Javascript Client
+        Object Model</h3>
       <br>
       <table>
         <tbody>
@@ -22,7 +24,8 @@
           </tr>
           <tr>
             <td><label class="label" for="name">Name</label></td>
-            <td><input type="text" title="Enter name of the student" placeholder="Enter Name" id="name"></td>
+            <td><input type="text" title="Enter name of the student" placeholder="Enter Name" id="name">
+            </td>
           </tr>
           <tr>
             <td><label class="label" for="address">Address</label></td>
@@ -49,9 +52,25 @@
                 <option value="Other">Other</option>
               </select></td>
           </tr>
+        </tbody>
+      </table>
+      <br>
+      <table>
+        <tbody>
           <tr>
-            <td><label class="label" for="custID">Custom ID</label></td>
-            <td><input type="text" title="Enter corresponding ID of the student" placeholder="Enter Custom ID"
+            <td class="buttons_table"><br><button type="button" title="Create Item" class="button" id="create_button"
+                onclick="createListItem()">Create</button></td>
+            <td class="buttons_table"><br><button type="button" title="Reset Form fields" class="button"
+                id="reset_button" onclick="resetForm()">Reset</button></td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      <table>
+        <tbody>
+          <tr>
+            <td><label class="label" for="custID">Enter Student ID</label></td>
+            <td><input type="text" title="Enter corresponding ID of the student" placeholder="Enter Student ID"
                 id="custID"></td>
           </tr>
         </tbody>
@@ -59,15 +78,13 @@
       <table>
         <tbody>
           <tr>
-            <td><br><button type="button" title="Create Item" class="button" id="create_button"
-                onclick="createListItem()">Create</button></td>
-            <td><br><button type="button" title="Reset Form fields" class="button" id="reset_button"
-                onclick="resetForm()">Reset</button></td>
-            <td><br><button type="button" title="Read Item" class="button" id="read_button"
+            <td class="buttons_table"><br><button type="button" title="Reset Form fields" class="button"
+                id="reset_button2" onclick="resetForm()">Reset</button></td>
+            <td class="buttons_table"><br><button type="button" title="Read Item" class="button" id="read_button"
                 onclick="getListItem()">Read</button></td>
-            <td><br><button type="button" title="Update Item" class="button" id="update_button"
+            <td class="buttons_table"><br><button type="button" title="Update Item" class="button" id="update_button"
                 onclick="updateListItem()">Update</button></td>
-            <td><br><button type="button" title="Delete Item" class="button" id="delete_button"
+            <td class="buttons_table"><br><button type="button" title="Delete Item" class="button" id="delete_button"
                 onclick="deleteListItem()">Delete</button>
             </td>
           </tr>
