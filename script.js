@@ -36,6 +36,7 @@ function createListItem() {
 
     oListItem.update();
     clientContext.load(oListItem);
+
     clientContext.executeQueryAsync(
       Function.createDelegate(this, this.onCreateQuerySucceeded),
       Function.createDelegate(this, this.onUpdateQueryFailed)
@@ -59,20 +60,28 @@ function onUpdateQueryFailed(sender, args) {
 ///</summary>
 function getListItem() {
   var cID = document.getElementById("custID").value;
+
   var clientContext = new SP.ClientContext.get_current();
   var olist = clientContext.get_web().get_lists().getByTitle('Student');
+
   var camlQuery = new SP.CamlQuery();
   camlQuery.set_viewXml('<View><Query><Where><Eq><FieldRef Name=\'CustomID\'/><Value Type=\'Text\'>' + cID + '</Value></Eq></Where></Query></View>');
   this.collListItem = olist.getItems(camlQuery);
+
   if (cID == "") {
     alert("Please enter Id");
   } else {
     clientContext.load(collListItem);
-    clientContext.executeQueryAsync(Function.createDelegate(this, this.onGetQuerySucceeded), Function.createDelegate(this, this.onGetQueryFailed));
+    clientContext.executeQueryAsync(
+      Function.createDelegate(this, this.onGetQuerySucceeded),
+      Function.createDelegate(this, this.onGetQueryFailed)
+    );
   }
 }
+
 function onGetQuerySucceeded(sender, args) {
   var listItemEnumerator = collListItem.getEnumerator();
+
   while (listItemEnumerator.moveNext()) {
     var listItem = listItemEnumerator.get_current();
 
@@ -105,6 +114,7 @@ function updateListItem() {
   console.log(oListItems);
 
   clientContext.load(oListItems);
+
   clientContext.executeQueryAsync(
     Function.createDelegate(this, this.onUpdateQuerySucceeded),
     Function.createDelegate(this, this.onUpdateQueryFailed)
@@ -120,16 +130,19 @@ function onUpdateQuerySucceeded() {
 
   var listItemEnumerator = oListItems.getEnumerator();
   var listItem;
+
   while (listItemEnumerator.moveNext()) {
     listItem = listItemEnumerator.get_current();
     console.log(listItem);
   }
+
   listItem.set_item('Title', name);
   listItem.set_item('Address', address);
   listItem.set_item('Qualification', qualification);
   listItem.set_item('Age', age);
   listItem.set_item('Gender', gender);
   listItem.update();
+
   executeRequest(listItem);
   alert('Item updated');
   resetForm();
@@ -155,6 +168,7 @@ function deleteListItem() {
   this.oListItems = oList.getItems(camlQuery);
 
   clientContext.load(oListItems);
+
   clientContext.executeQueryAsync(
     Function.createDelegate(this, this.onDeleteQuerySucceeded),
     Function.createDelegate(this, this.onDeleteQueryFailed)
@@ -164,10 +178,12 @@ function deleteListItem() {
 function onDeleteQuerySucceeded() {
   var listItemEnumerator = oListItems.getEnumerator();
   var listItem;
+
   while (listItemEnumerator.moveNext()) {
     listItem = listItemEnumerator.get_current();
   }
   listItem.deleteObject();
+
   executeRequest(listItem);
   alert('Item deleted');
   resetForm();
@@ -185,6 +201,7 @@ function onDeleteQueryFailed(sender, args) {
 function executeRequest(listItem) {
   var clientContext = new SP.ClientContext.get_current();
   clientContext.load(listItem);
+
   clientContext.executeQueryAsync(
     Function.createDelegate(this, this.onExecutionSucceeded),
     Function.createDelegate(this, this.onExecutionFailed)
