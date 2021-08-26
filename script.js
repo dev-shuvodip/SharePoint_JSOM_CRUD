@@ -72,6 +72,7 @@ function getListItem() {
     alert("Please enter Id");
   } else {
     clientContext.load(collListItem);
+    
     clientContext.executeQueryAsync(
       Function.createDelegate(this, this.onGetQuerySucceeded),
       Function.createDelegate(this, this.onGetQueryFailed)
