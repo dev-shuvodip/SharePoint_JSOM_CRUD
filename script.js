@@ -1,6 +1,5 @@
-
 ///<summary>
-/// Function to reset the form fields
+///        Function to reset the form fields
 ///</summary>
 function resetForm() {
   document.querySelector("label#def_id").textContent = "";
@@ -14,7 +13,7 @@ function resetForm() {
 //---------------------- Reset function end -------------------------------
 
 ///<summary>
-/// Function to create an item in a SharePoint Online List
+///        Function to create an item in a SharePoint Online List
 ///</summary>
 function createListItem() {
   var title = document.getElementById("name").value;
@@ -22,7 +21,7 @@ function createListItem() {
   var qualification = document.getElementById("qualification").value;
   var age = document.getElementById("age").value;
   var gender = document.getElementById("gender").value;
-  var custID = document.getElementById("custID").value;
+  var custID = generateUniqueID();
 
   var clientContext = new SP.ClientContext.get_current();
   var oList = clientContext.get_web().get_lists().getByTitle('Student');
@@ -59,7 +58,7 @@ function createListItem() {
 }
 
 function onCreateQuerySucceeded() {
-  alert('Item created: ' + oListItem.get_id());
+  alert('Student record created with ID ' + oListItem.get_item('CustomID'));
   resetForm();
 }
 
@@ -70,20 +69,17 @@ function onUpdateQueryFailed(sender, args) {
 //---------------------- Create function end -------------------------------
 
 ///<summary>
-/// Function to get a list item from a SharePoint Online List using custom ID column
+///        Function to get a list item from a SharePoint Online List using custom ID column
 ///</summary>
 function getListItem() {
   var cID = document.getElementById("custID").value;
   var clientContext = new SP.ClientContext.get_current();
   var olist = clientContext.get_web().get_lists().getByTitle('Student');
   var camlQuery = new SP.CamlQuery();
-  camlQuery.set_viewXml('<View><Query><Where><Eq><FieldRef Name=\'CustomID\'/><Value Type=\'Number\'>' + cID + '</Value></Eq></Where></Query></View>');
+  camlQuery.set_viewXml('<View><Query><Where><Eq><FieldRef Name=\'CustomID\'/><Value Type=\'Text\'>' + cID + '</Value></Eq></Where></Query></View>');
   this.collListItem = olist.getItems(camlQuery);
   if (cID == "") {
     alert("Please enter Id");
-  } else if (isNaN(cID)) {
-    alert("Only integer input is allowed");
-    resetForm();
   } else {
     clientContext.load(collListItem);
     clientContext.executeQueryAsync(Function.createDelegate(this, this.onGetQuerySucceeded), Function.createDelegate(this, this.onGetQueryFailed));
@@ -109,7 +105,7 @@ function onGetQueryFailed(sender, args) {
 //---------------------- Get function end -------------------------------
 
 ///<summary>
-/// Function to update a list item in a SharePoint Online List using custom ID column
+///        Function to update a list item in a SharePoint Online List using custom ID column
 ///</summary>
 function updateListItem() {
   var c_ID = document.getElementById("custID").value;
@@ -118,7 +114,7 @@ function updateListItem() {
   var oList = clientContext.get_web().get_lists().getByTitle('Student');
 
   var camlQuery = new SP.CamlQuery();
-  camlQuery.set_viewXml('<View><Query><Where><Eq><FieldRef Name=\'CustomID\'/><Value Type=\'Number\'>' + c_ID + '</Value></Eq></Where></Query></View>');
+  camlQuery.set_viewXml('<View><Query><Where><Eq><FieldRef Name=\'CustomID\'/><Value Type=\'Text\'>' + c_ID + '</Value></Eq></Where></Query></View>');
   this.oListItems = oList.getItems(camlQuery);
   console.log(oListItems);
 
@@ -160,7 +156,7 @@ function onUpdateQueryFailed(sender, args) {
 //---------------------- Update function end -------------------------------
 
 ///<summary>
-/// Function to delete a list item in a SharePoint Online List using custom ID column
+///        Function to delete a list item in a SharePoint Online List using custom ID column
 ///</summary>
 function deleteListItem() {
   var c_ID = document.getElementById("custID").value;
@@ -169,7 +165,7 @@ function deleteListItem() {
   var oList = clientContext.get_web().get_lists().getByTitle('Student');
 
   var camlQuery = new SP.CamlQuery();
-  camlQuery.set_viewXml('<View><Query><Where><Eq><FieldRef Name=\'CustomID\'/><Value Type=\'Number\'>' + c_ID + '</Value></Eq></Where></Query></View>');
+  camlQuery.set_viewXml('<View><Query><Where><Eq><FieldRef Name=\'CustomID\'/><Value Type=\'Text\'>' + c_ID + '</Value></Eq></Where></Query></View>');
   this.oListItems = oList.getItems(camlQuery);
 
   clientContext.load(oListItems);
@@ -198,7 +194,7 @@ function onDeleteQueryFailed(sender, args) {
 //---------------------- Delete function end -------------------------------
 
 ///<summary>
-/// Function to execute pending requests on the server
+///        Function to execute pending requests on the server
 ///</summary>
 function executeRequest(listItem) {
   var clientContext = new SP.ClientContext.get_current();
@@ -212,3 +208,16 @@ function onExecutionSucceeded() { }
 
 function onExecutionFailed(sender, args) { }
 //---------------------- Execute function end -------------------------------
+
+///<summary>
+///        Function to generate random student ID
+///</summary>
+function generateUniqueID() {
+  var uniqueID = Math.floor((1 + Math.random()) * 0x10000)
+    .toString(16)
+    .substring(1);
+
+  console.log(uniqueID);
+  return uniqueID;
+}
+//---------------------- Generate ID function end -------------------------------
