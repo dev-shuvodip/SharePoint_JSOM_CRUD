@@ -1,18 +1,4 @@
 ///<summary>
-///        Function to reset the form fields
-///</summary>
-function resetForm() {
-  document.querySelector("label#def_id").textContent = "";
-  document.getElementById("name").value = "";
-  document.getElementById("address").value = "";
-  document.getElementById("qualification").value = "";
-  document.getElementById("age").value = null;
-  document.getElementById('gender').selectedIndex = 0;
-  document.getElementById("custID").value = null;
-}
-//---------------------- Reset function end -------------------------------
-
-///<summary>
 ///        Function to create an item in a SharePoint Online List
 ///</summary>
 function createListItem() {
@@ -221,3 +207,17 @@ function generateUniqueID() {
   return uniqueID;
 }
 //---------------------- Generate ID function end -------------------------------
+
+///<summary>
+///        Function to reset the form fields
+///</summary>
+function resetForm() {
+  document.querySelector("label#def_id").textContent = "";
+  document.getElementById("name").value = "";
+  document.getElementById("address").value = "";
+  document.getElementById("qualification").value = "";
+  document.getElementById("age").value = null;
+  document.getElementById('gender').selectedIndex = 0;
+  document.getElementById("custID").value = null;
+}
+//---------------------- Reset function end -------------------------------
