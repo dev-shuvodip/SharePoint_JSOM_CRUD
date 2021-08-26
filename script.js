@@ -12,7 +12,6 @@ function createListItem() {
   var clientContext = new SP.ClientContext.get_current();
   var oList = clientContext.get_web().get_lists().getByTitle('Student');
 
-  // Create an item in a list
   var itemCreateInfo = new SP.ListItemCreationInformation();
   this.oListItem = oList.addItem(itemCreateInfo);
   oListItem.set_item('Title', title);
@@ -22,7 +21,6 @@ function createListItem() {
   oListItem.set_item('Gender', gender);
   oListItem.set_item('CustomID', custID);
 
-  // Input validation
   if (title == "" || address == "" || qualification == "" || age == "" || gender == "default") {
     alert("Please fill all the fields!");
   } else if (isNaN(age)) {
@@ -72,7 +70,7 @@ function getListItem() {
     alert("Please enter Id");
   } else {
     clientContext.load(collListItem);
-    
+
     clientContext.executeQueryAsync(
       Function.createDelegate(this, this.onGetQuerySucceeded),
       Function.createDelegate(this, this.onGetQueryFailed)
