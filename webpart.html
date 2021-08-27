@@ -128,7 +128,7 @@
 
     <script>
       ///<summary>
-      ///         Function to create an item in a SharePoint Online List
+      ///         Function to create an item in a SharePoint Online List.
       ///</summary>
       function createListItem() {
         var title = document.getElementById("name").value;
@@ -181,7 +181,7 @@
       //---------------------- Create function end -------------------------------
 
       ///<summary>
-      ///         Function to get a list item from a SharePoint Online List using custom ID column
+      ///         Function to get a list item from a SharePoint Online List using custom ID column.
       ///</summary>
       function getListItem() {
         var cID = document.getElementById("custID").value;
@@ -221,7 +221,7 @@
       //---------------------- Get function end -------------------------------
 
       ///<summary>
-      ///         Function to update a list item in a SharePoint Online List using custom ID column
+      ///         Function to update a list item in a SharePoint Online List using custom ID column.
       ///</summary>
       function updateListItem() {
         var c_ID = document.getElementById("custID").value;
@@ -271,7 +271,7 @@
       //---------------------- Update function end -------------------------------
 
       ///<summary>
-      ///         Function to delete a list item in a SharePoint Online List using custom ID column
+      ///         Function to delete a list item in a SharePoint Online List using custom ID column.
       ///</summary>
       function deleteListItem() {
         var c_ID = document.getElementById("custID").value;
@@ -317,7 +317,7 @@
       }
 
       ///<summary>
-      ///         Function to execute pending requests on the server
+      ///         Function to execute pending requests on the server.
       ///</summary>
       function executeRequest(listItem) {
         var clientContext = new SP.ClientContext.get_current();
@@ -342,7 +342,7 @@
       //---------------------- Execute function end -------------------------------
 
       ///<summary>
-      ///         Function to reset the form fields
+      ///         Function to reset the form fields.
       ///</summary>
       function resetForm() {
         document.querySelector("label#def_id").textContent = "";
@@ -356,7 +356,7 @@
       //---------------------- Reset function end -------------------------------
 
       ///<summary>
-      ///         Function to generate random student ID
+      ///         Function to generate random student ID.
       ///</summary>
       function generateUniqueID() {
         var uniqueID = Math.floor((1 + Math.random()) * 0x10000)
